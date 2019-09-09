@@ -5,7 +5,7 @@
   "repository": "https://cryptonoter.com",
   "main": "server.js",
   "dependencies": {
-    "ws": "^3.2.0"
+    "ws": "^3.3.1"
   },
   "devDependencies": {},
   "scripts": {
